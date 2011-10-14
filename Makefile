@@ -1,0 +1,2 @@
+test:
+	@rake jasmine:ci
