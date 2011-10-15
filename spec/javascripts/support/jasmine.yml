@@ -11,7 +11,8 @@
 #   - dist/**/*.js
 #
 src_files:
-    - src/**/*.js
+    - src/vendor/*.js
+    - src/*.js
 
 # stylesheets
 #
