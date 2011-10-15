@@ -7,11 +7,9 @@
                 this.storage = globals.localStorage;
             }
             this.registeredItems = {};
-            if (this.storage.items) {
-                this.cachedItems = JSON.parse(this.storage.items);
-            } else {
-                this.cachedItems = [];
-            }
+
+            if (!this.storage.items) this.storage.items = '[]';
+            this.cachedItems = JSON.parse(this.storage.items);
         },
 
         registerCache: function(key, cacheMiss, duration) {
@@ -30,13 +28,13 @@
         },
 
         get: function(key, callback) {
-            if (this.cachedItems[key] && this.cachedItems[key].expiration > this.time()) {
-                callback(this.cachedItems[key].value);
+            if (this.cachedItems[key] && this.cachedItems[key].e > this.time()) {
+                callback(this.cachedItems[key].v);
             } else {
                 this.registeredItems[key].cacheMiss(function(data) {
                     this.cachedItems[key] = {
-                        value: data,
-                        expiration: this.time() + (this.registeredItems[key].duration * 1000)
+                        v: data,
+                        e: this.time() + (this.registeredItems[key].duration * 1000)
                     };
                     this.storage.items = JSON.stringify(this.cachedItems);
 

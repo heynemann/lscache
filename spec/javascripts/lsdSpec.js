@@ -5,7 +5,7 @@ describe("lsd", function() {
 
     describe("instance with custom local storage", function() {
         it("should retain custom storage", function() {
-            var mockStorage = 'mock storage';
+            var mockStorage = {items:'[]'};
             var lsd = new window.Lsd(mockStorage);
 
             expect(lsd.storage).toEqual(mockStorage);
@@ -50,7 +50,8 @@ describe("lsd", function() {
         describe("Getting a cached item", function() {
 
             it("should re-run cache miss function to get expired item", function() {
-                this.lsd.registerCache('some.key', function(callback) { callback('Hello World'); }, 0.001);
+                this.lsd.registerCache('some.key', function(callback) { callback('Hello World'); }, 0.00000001);
+
                 var retrieved = null;
                 this.lsd.get('some.key', function(data) {
                     retrieved = data;
@@ -58,7 +59,7 @@ describe("lsd", function() {
 
                 this.lsd.registeredItems['some.key']['cacheMiss'] = function(callback) { callback('Something else'); };
 
-                waits(10);
+                waits(100);
 
                 retrieved = null;
                 this.lsd.get('some.key', function(data) {
@@ -110,7 +111,7 @@ describe("lsd", function() {
 
                 runs(function () {
                     expect(retrieved).toEqual('Hello World');
-                    expect(this.lsd.cachedItems['some.key']['value']).toEqual('Hello World');
+                    expect(this.lsd.cachedItems['some.key']['v']).toEqual('Hello World');
                 });
             });
         });
