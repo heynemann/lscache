@@ -14,6 +14,7 @@ describe("lsd", function() {
 
     describe("instance", function() {
         beforeEach(function() {
+            window.localStorage.clear();
             this.lsd = new Lsd();
         });
 
@@ -37,7 +38,7 @@ describe("lsd", function() {
                 });
             });
 
-            it("should rais when re-registering", function() {
+            it("should throw when re-registering", function() {
                 var cacheMiss = function(callback) {};
                 this.lsd.registerCache('some.key', cacheMiss, 61);
 
@@ -48,6 +49,70 @@ describe("lsd", function() {
 
         describe("Getting a cached item", function() {
 
+            it("should re-run cache miss function to get expired item", function() {
+                this.lsd.registerCache('some.key', function(callback) { callback('Hello World'); }, 0.001);
+                var retrieved = null;
+                this.lsd.get('some.key', function(data) {
+                    retrieved = data;
+                });
+
+                this.lsd.registeredItems['some.key']['cacheMiss'] = function(callback) { callback('Something else'); };
+
+                waits(10);
+
+                retrieved = null;
+                this.lsd.get('some.key', function(data) {
+                    retrieved = data;
+                });
+
+                waitsFor(function() {
+                    return retrieved != null;
+                }, "Data was not retrieved from cache.", 100);
+
+                runs(function () {
+                    expect(retrieved).toEqual('Something else');
+                });
+            });
+            it("should return cached item from cache", function() {
+                this.lsd.registerCache('some.key', function(callback) { callback('Hello World'); }, 120);
+                var retrieved = null;
+                this.lsd.get('some.key', function(data) {
+                    retrieved = data;
+                });
+
+                this.lsd.registeredItems['some.key']['cacheMiss'] = function(callback) { callback('Something else'); };
+
+                retrieved = null;
+                this.lsd.get('some.key', function(data) {
+                    retrieved = data;
+                });
+
+                waitsFor(function() {
+                    return retrieved != null;
+                }, "Data was not retrieved from cache.", 100);
+
+                runs(function () {
+                    expect(retrieved).toEqual('Hello World');
+                });
+            });
+
+            it("should return cached item asynchronously", function() {
+
+                this.lsd.registerCache('some.key', function(callback) { callback('Hello World'); }, 1);
+                var retrieved = null;
+                this.lsd.get('some.key', function(data) {
+                    retrieved = data;
+                });
+
+                waitsFor(function() {
+                  return retrieved != null;
+                }, "Data was never retrieved.", 10000);
+
+                runs(function () {
+                    expect(retrieved).toEqual('Hello World');
+                    expect(this.lsd.cachedItems['some.key']['value']).toEqual('Hello World');
+                });
+            });
         });
     });
 
