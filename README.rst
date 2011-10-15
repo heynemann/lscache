@@ -49,7 +49,7 @@ available.
 Licensing
 =========
 
-_lsd.js is licensed under the The MIT License (MIT)
+lsd.js_ is licensed under the The MIT License (MIT)
 
 Copyright (c) 2011 Bernardo Heynemann
 
