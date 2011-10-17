@@ -35,13 +35,11 @@ a:hover {
   color: #ff67ef;
 }
 .title {
-  margin-top: 42px;
+  margin-top: 36px;
 }
 .title a {
   font-family: 'STATICBUZZRegular';
-  font-size: 108px;
-  height: 128px;
-  padding-top: 16px;
+  font-size: 72px;
 }
 pre {
   margin-top: 10px;
