@@ -1,0 +1,53 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body {
+  margin: 0 auto;
+  width: 960px;
+  color: #000000;
+  font-family: 'TravelingTypewriterRegular';
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+p {
+  line-height: 22px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+  color: #333333;
+}
+h2 {
+  font-family: 'pulsesansRegular';
+  margin: 18px 0 2px 0;
+}
+a {
+  color: #cd00b7;
+  text-decoration: none;
+}
+a:hover {
+  color: #ff67ef;
+}
+.title {
+  margin-top: 42px;
+}
+.title a {
+  font-family: 'pulsesansRegular';
+  font-size: 108px;
+  height: 128px;
+  padding-left: 160px;
+  background: url('../img/cache.png') 0 0 no-repeat;
+  padding-top: 16px;
+}
+pre {
+  margin-top: 10px;
+  background: black;
+  color: white;
+  padding: 15px;
+}

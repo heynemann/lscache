@@ -1,0 +1,63 @@
+@link: #cd00b7;
+@link-hover: lighten(@link, 30%);
+@titles: #333;
+@text: darken(@titles, 20%);
+
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+body {
+    margin: 0 auto;
+    width: 960px;
+
+    color: @text;
+    font-family: 'TravelingTypewriterRegular';
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+p {
+    line-height: 22px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+    color: @titles;
+}
+
+h2 {
+    font-family: 'pulsesansRegular';
+    margin: 18px 0 2px 0;
+}
+
+a {
+    color: @link;
+    text-decoration: none;
+
+    &:hover {
+        color: @link-hover;
+    }
+}
+
+.title {
+    margin-top: 42px;
+
+    a {
+        font-family: 'pulsesansRegular';
+        font-size: 108px;
+        height: 128px;
+        padding-left: 160px;
+        background: url('../img/cache.png') 0 0 no-repeat;
+        padding-top: 16px;
+    }
+}
+
+pre {
+    margin-top: 10px;
+    background: black;
+    color: white;
+    padding: 15px;
+}
