@@ -1,6 +1,6 @@
 (function(globals) {
 
-    globals.Lsd = new Class({
+    globals.LsCache = new Class({
         initialize: function(localStorage){
             this.storage = localStorage;
             if (!this.storage) {
